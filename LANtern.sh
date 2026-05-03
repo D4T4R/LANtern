@@ -261,7 +261,7 @@ print_table() {
     [[ ${#DEVICE_MACS[$i]}     -gt $W_MAC    ]] && W_MAC=${#DEVICE_MACS[$i]}
     [[ ${#DEVICE_TYPES[$i]}    -gt $W_TYPE   ]] && W_TYPE=${#DEVICE_TYPES[$i]}
     [[ ${#DEVICE_VENDORS[$i]}  -gt $W_VENDOR ]] && W_VENDOR=${#DEVICE_VENDORS[$i]}
-    [[ ${#DEVICE_HOSTNAMES[$i]}-gt $W_HOST   ]] && W_HOST=${#DEVICE_HOSTNAMES[$i]}
+    [[ ${#DEVICE_HOSTNAMES[$i]} -gt $W_HOST   ]] && W_HOST=${#DEVICE_HOSTNAMES[$i]}
   done
 
   # Pad helper
