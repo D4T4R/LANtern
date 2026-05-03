@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
 #  LANtern.sh — Home Network Scanner & Device Identifier
-#  Author: generated for Aniket
+#  Author: Aniket Datar
 # =============================================================================
 
 set -euo pipefail
