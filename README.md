@@ -39,13 +39,13 @@ Built for Linux. Works with repeaters, IoT devices, CCTVs, smart TVs, solar inve
 | IP Address      | MAC Address       | Device Type                  | Vendor                              | Hostname             |
 +-----------------+-------------------+------------------------------+-------------------------------------+----------------------+
 | 192.168.1.1     | 20:0C:86:1C:16:20 | Router / Gateway             | Unknown                             | _gateway             |
-| 192.168.1.2     | 50:D4:F7:CD:02:B0 | WiFi Repeater/AP             | Tp-link Technologies                | —                    |
-| 192.168.1.5     | F6:6A:BB:F9:BF:1B | Phone (MAC Randomized)       | Randomized MAC                      | —                    |
-| 192.168.1.8     | A0:6F:AA:F6:85:94 | Smart TV                     | LG Innotek                          | —                    |
-| 192.168.1.11    | 68:FE:71:A8:FC:68 | Solar Inverter / IoT         | Espressif Inc.                      | —                    |
-| 192.168.1.13    | C0:51:7E:41:9C:DE | CCTV Camera                  | Hangzhou Hikvision Digital Tech     | —                    |
-| 192.168.1.19    | C8:7E:A1:0A:09:EB | Smart TV                     | TCL Moka International Limited      | —                    |
-| 192.168.1.101   | 32:DE:4B:09:41:6D | Amazon Device (Echo/Fire)    | Amazon Technologies Inc.            | —                    |
+| 192.168.1.2     | 50:D4:F7:CD:02:B0 | WiFi Repeater/AP             | Test Vendr                          | —                    |
+| 192.168.1.5     | F6:6A:BB:F9:BF:1B | Phone (MAC Randomized)       | Test VendrVe                        | —                    |
+| 192.168.1.8     | A0:6F:AA:F6:85:94 | Smart TV                     | Test Vendr Ve                       | —                    |
+| 192.168.1.11    | 68:FE:71:A8:FC:68 | Solar Inverter / IoT         | Test Vendr Ven                      | —                    |
+| 192.168.1.13    | C0:51:7E:41:9C:DE | CCTV Camera                  | Test Vendr Vendor                   | —                    |
+| 192.168.1.19    | C8:7E:A1:0A:09:EB | Smart TV                     | Test Vendr Vendor Ve                | —                    |
+| 192.168.1.101   | 32:DE:4B:09:41:6D | Amazon Device (Echo/Fire)    | Test Vendr Vendor Vendor            | —                    |
 | 192.168.1.33    | —                 | Unknown Device               | —                                   | pop-os               |
 +-----------------+-------------------+------------------------------+-------------------------------------+----------------------+
 
@@ -59,7 +59,7 @@ Built for Linux. Works with repeaters, IoT devices, CCTVs, smart TVs, solar inve
 
 ```bash
 # Clone
-git clone https://github.com/D4T4R>/LANtern.git
+git clone https://github.com/D4T4R/LANtern.git
 cd LANtern
 
 # Make executable
