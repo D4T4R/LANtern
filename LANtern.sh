@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-#  LANtern.sh — Home Network Scanner & Device Identifier
+#  LANtern.sh — Minimalist Network Scanner & Device Identifier
 #  Author: Aniket Datar
 # =============================================================================
 
