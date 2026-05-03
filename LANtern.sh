@@ -4,6 +4,11 @@
 #  Author: Aniket Datar
 # =============================================================================
 
+# Re-exec with bash if accidentally run under sh
+if [ -z "$BASH_VERSION" ]; then
+  exec bash "$0" "$@"
+fi
+
 set -euo pipefail
 
 # ── Colors ────────────────────────────────────────────────────────────────────
@@ -77,22 +82,41 @@ ensure_nmap() {
 
 # ── Detect local subnet ───────────────────────────────────────────────────────
 detect_subnet() {
-  # Try ip route first
-  SUBNET=$(ip route 2>/dev/null \
-    | grep -v default \
-    | grep -E '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' \
-    | awk '{print $1}' \
-    | grep -v '169\.254' \
-    | head -1)
+  # Use the default gateway interface (your real NIC, not docker0/virbr0)
+  DEFAULT_IFACE=$(ip route | grep '^default' | awk '{print $5}' | head -1)
 
-  # Fallback: derive from primary interface IP
+  if [[ -n "$DEFAULT_IFACE" ]]; then
+    SUBNET=$(ip route 2>/dev/null \
+      | grep -v default \
+      | grep "dev ${DEFAULT_IFACE}" \
+      | grep -E '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' \
+      | awk '{print $1}' \
+      | grep -v '169\.254' \
+      | head -1)
+  fi
+
+  # Fallback: skip docker/virbr/veth/lo virtual interfaces
   if [[ -z "$SUBNET" ]]; then
-    LOCAL_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+    SUBNET=$(ip route 2>/dev/null \
+      | grep -v default \
+      | grep -vE 'docker|virbr|veth|br-| lo ' \
+      | grep -E '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' \
+      | awk '{print $1}' \
+      | grep -v '169\.254' \
+      | head -1)
+  fi
+
+  # Last resort: derive from hostname -I, skip 172.x (Docker) and loopback
+  if [[ -z "$SUBNET" ]]; then
+    LOCAL_IP=$(hostname -I 2>/dev/null \
+      | tr ' ' '\n' \
+      | grep -vE '^172\.|^169\.254|^127\.' \
+      | head -1)
     PREFIX=$(echo "$LOCAL_IP" | cut -d. -f1-3)
     SUBNET="${PREFIX}.0/24"
   fi
 
-  success "Detected subnet: ${BOLD}$SUBNET${NC}"
+  success "Detected subnet: ${BOLD}$SUBNET${NC}  (iface: ${DEFAULT_IFACE:-auto})"
 }
 
 # ── MAC vendor lookup (macvendors.com API, rate-limited) ──────────────────────
@@ -261,7 +285,7 @@ print_table() {
     [[ ${#DEVICE_MACS[$i]}     -gt $W_MAC    ]] && W_MAC=${#DEVICE_MACS[$i]}
     [[ ${#DEVICE_TYPES[$i]}    -gt $W_TYPE   ]] && W_TYPE=${#DEVICE_TYPES[$i]}
     [[ ${#DEVICE_VENDORS[$i]}  -gt $W_VENDOR ]] && W_VENDOR=${#DEVICE_VENDORS[$i]}
-    [[ ${#DEVICE_HOSTNAMES[$i]} -gt $W_HOST   ]] && W_HOST=${#DEVICE_HOSTNAMES[$i]}
+    [[ ${#DEVICE_HOSTNAMES[$i]} -gt $W_HOST  ]] && W_HOST=${#DEVICE_HOSTNAMES[$i]}
   done
 
   # Pad helper
