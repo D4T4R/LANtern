@@ -2,7 +2,7 @@
 
 > *Lights up every dark corner of your LAN.*
 
-`lantern` is a zero-dependency\* shell script that scans your home or office Wi-Fi network, identifies every active device by MAC address, enriches unknown vendors via the macvendors.com API, and renders a clean colour-coded ASCII table — all in one shot.
+`LANtern` is a zero-dependency\* shell script that scans your home or office Wi-Fi network, identifies every active device by MAC address, enriches unknown vendors via the macvendors.com API, and renders a clean colour-coded ASCII table — all in one shot.
 
 Built for Linux. Works with repeaters, IoT devices, CCTVs, smart TVs, solar inverters — anything on the same subnet.
 
@@ -25,7 +25,7 @@ Built for Linux. Works with repeaters, IoT devices, CCTVs, smart TVs, solar inve
 
 ```
 ╔══════════════════════════════════════╗
-║      lantern  —  by Aniket           ║
+║      LANtern  —  by Aniket           ║
 ╚══════════════════════════════════════╝
 
 [✔] nmap found: Nmap version 7.94
@@ -59,14 +59,14 @@ Built for Linux. Works with repeaters, IoT devices, CCTVs, smart TVs, solar inve
 
 ```bash
 # Clone
-git clone https://github.com/<your-username>/lantern.git
-cd lantern
+git clone https://github.com/D4T4R>/LANtern.git
+cd LANtern
 
 # Make executable
-chmod +x lantern.sh
+chmod +x LANtern.sh
 
 # Run (root required for raw socket access)
-sudo ./lantern.sh
+sudo ./LANtern.sh
 ```
 
 ---
